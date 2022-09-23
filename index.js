@@ -7,14 +7,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+//require
+const userRoute = require('./routes/userRoute');
 
 // routes
 app.get('/api', (req, res) => {
     res.send('Server is ready.')
   })
 
-// app.use('/api', userRoute);
-
+app.use('/api', userRoute);
 
 
 // port listening

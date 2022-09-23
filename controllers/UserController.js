@@ -59,6 +59,60 @@ const store = async (req, res) => {
     }
 }
 
+const update = async (req, res) => {
+
+    const { id } = req.params;
+
+    try {
+        const found = datas.find(item => item.id === Number(id));
+        if(!found){
+            res.status(409).send('No data found with this id');
+        }else{
+
+            const filteredData = datas.filter(item => item.id !== Number(id));
+
+            const updateData = { ...found, 
+                name: req.body.name, contact: req.body.contact, 
+                address: req.body.address, gender: req.body.gender,
+                photoUrl: req.body.photoUrl,
+            }
+
+            filteredData.push(updateData)
+            writeFileSync(__dirname + '/../public/data.json', JSON.stringify(filteredData))
+            res.send(`account with ${id} data update!`)
+        }
+    } catch (error) {
+        res.status(404).send(error.message)
+    }
+}
+
+const bulkUpdate = async (req, res) => {
+
+    const { id } = req.params;
+
+    try {
+        const found = datas.find(item => item.id === Number(id));
+        if(!found){
+            res.status(409).send('No data found with this id');
+        }else{
+
+            const filteredData = datas.filter(item => item.id !== Number(id));
+
+            const updateData = { ...found, 
+                name: req.body.name, contact: req.body.contact, 
+                address: req.body.address, gender: req.body.gender,
+                photoUrl: req.body.photoUrl,
+            }
+
+            filteredData.push(updateData)
+            writeFileSync(__dirname + '/../public/data.json', JSON.stringify(filteredData))
+            res.send(`account with ${id} data update!`)
+        }
+    } catch (error) {
+        res.status(404).send(error.message)
+    }
+}
+
 const destroy = async (req, res) => {
 
     const { id } = req.params;
@@ -78,4 +132,4 @@ const destroy = async (req, res) => {
     }
 }
 
-module.exports = { index, all, store, destroy }
+module.exports = { index, all, store, update, bulkUpdate, destroy }

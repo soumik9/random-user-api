@@ -1,5 +1,5 @@
 # Random user 
-Live Server [Click here](https://tech-moto-9.herokuapp.com/)
+Live Server [Click here](https://random-user-api-bov6.onrender.com/)
 
 ##These datas are manupulating from a .json file.
 

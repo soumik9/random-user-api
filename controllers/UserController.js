@@ -30,10 +30,28 @@ const store = async (req, res) => {
     const newData = req.body;
 
     try {
-        datas.push(newData);
 
-        writeFileSync(__dirname + '/../public/data.json', JSON.stringify(datas))
-        res.send({newData, message: 'Data saved!'})
+        const found = datas.find(item => item.id === newData.id);
+
+        if(found){
+            res.status(409).send('Can not create with same id')
+        }else{
+
+            if(newData.name === ''){
+                res.status(400).send('Name is required!')
+                return
+            }
+            if(newData.contact === ''){
+                res.status(400).send('Contact is require!')
+                return
+            }
+
+            datas.push(newData);
+
+            writeFileSync(__dirname + '/../public/data.json', JSON.stringify(datas))
+            res.send({newData, message: 'Data saved!'})
+        }
+
     } catch (error) {
         res.status(404).send(error.message)
     }

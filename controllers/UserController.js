@@ -37,12 +37,8 @@ const store = async (req, res) => {
             res.status(409).send('Can not create with same id')
         }else{
 
-            if(newData.name === ''){
-                res.status(400).send('Name is required!')
-                return
-            }
-            if(newData.contact === ''){
-                res.status(400).send('Contact is require!')
+            if(newData.name === '' || newData.contact === '' || newData.gender === '' || newData.id === '' || newData.photoUrl === '' || newData.address === ''){
+                res.status(400).send('All field is required!')
                 return
             }
 
@@ -87,25 +83,27 @@ const update = async (req, res) => {
 }
 const bulkUpdate = async (req, res) => {
 
+    console.log(req.body);
+
     try {
        
-        const found = datas.find(item => item.id === Number(req.body.id));
+        // const found = datas.filter(item => item.id === Number(req.body));
 
         if(!found){
             res.status(409).send('No data found with this id');
         }else{
 
-            const filteredData = datas.filter(item => item.id !== Number(req.body.id));
+            // const filteredData = datas.filter(item => item.id !== Number(req.body.id));
 
-            const updateData = { ...found, 
-                name: req.body.name, contact: req.body.contact, 
-                address: req.body.address, gender: req.body.gender,
-                photoUrl: req.body.photoUrl,
-            }
+            // const updateData = { ...found, 
+            //     name: req.body.name, contact: req.body.contact, 
+            //     address: req.body.address, gender: req.body.gender,
+            //     photoUrl: req.body.photoUrl,
+            // }
 
-            filteredData.push(updateData)
-            writeFileSync(__dirname + '/../public/data.json', JSON.stringify(filteredData))
-            res.send(`account with ${req.body.id} data update!`)
+            // filteredData.push(updateData)
+            // writeFileSync(__dirname + '/../public/data.json', JSON.stringify(filteredData))
+            res.send(`accounta data updated!`)
         }
     } catch (error) {
         res.status(404).send(error.message)

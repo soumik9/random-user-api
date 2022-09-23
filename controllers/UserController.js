@@ -48,7 +48,9 @@ const store = async (req, res) => {
 
             datas.push(newData);
 
-            writeFileSync(__dirname + '/../public/data.json', JSON.stringify(datas))
+            const stringifiedDatas = JSON.stringify(datas);
+
+            writeFileSync(__dirname + '/../public/data.json', stringifiedDatas)
             res.send({newData, message: 'Data saved!'})
         }
 
@@ -57,4 +59,23 @@ const store = async (req, res) => {
     }
 }
 
-module.exports = { index, all, store }
+const destroy = async (req, res) => {
+
+    const { id } = req.params;
+
+    try {
+        const found = datas.find(item => item.id === Number(id));
+        if(!found){
+            res.status(409).send('No data found with this id');
+            
+        }else{
+            const afterDeleted = datas.filter(item => item.id !== Number(id));
+            writeFileSync(__dirname + '/../public/data.json', JSON.stringify(afterDeleted))
+            res.send(`account with ${id} Data deleted!`)
+        }
+    } catch (error) {
+        res.status(404).send(error.message)
+    }
+}
+
+module.exports = { index, all, store, destroy }

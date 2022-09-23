@@ -15,6 +15,8 @@ router.get('/all', UserController.all);
 
 router.post('/save', UserController.store);
 
+router.delete('/delete/:id', UserController.destroy);
+
 
 
 

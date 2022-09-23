@@ -6,8 +6,14 @@ const UserController = require('../controllers/UserController');
 
 
 //get all users
-router.get('/user/random', UserController.index);
-router.get('/user/all', UserController.all);
+
+
+
+router.get('/random', UserController.index);
+
+router.get('/all', UserController.all);
+
+router.post('/save', UserController.store);
 
 
 

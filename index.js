@@ -11,11 +11,11 @@ app.use(express.json());
 const userRoute = require('./routes/userRoute');
 
 // routes
-app.get('/api', (req, res) => {
+app.get('/', (req, res) => {
     res.send('Server is ready.')
   })
 
-app.use('/api', userRoute);
+app.use('/user', userRoute);
 
 
 // port listening

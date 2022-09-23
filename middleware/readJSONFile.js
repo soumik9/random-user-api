@@ -1,17 +1,5 @@
-const fs = require('fs');
+const { readFileSync } = require('fs');
 
-function readJSONFile(filename, callback) {
-    fs.readFile(filename, function (err, data) {
-        if (err) {
-            callback(err);
-            return;
-        }
-        try {
-            callback(null, JSON.parse(data));
-        } catch (exception) {
-            callback(exception);
-        }
-    });
-}
+const loadUsers = () => JSON.parse(readFileSync(__dirname + '/../public/data.json')) ;
 
-module.exports = readJSONFile
+module.exports = loadUsers

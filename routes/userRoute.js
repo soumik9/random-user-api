@@ -10,10 +10,10 @@ router.get('/all', UserController.all);
 
 router.post('/save', UserController.store);
 
-router.patch('/update/:id', UserController.update);
-router.patch('/bulk-update/:id', UserController.bulkUpdate);
+router.patch('/update', UserController.update);
+router.patch('/bulk-update', UserController.bulkUpdate);
 
-router.delete('/delete/:id', UserController.destroy);
+router.delete('/delete', UserController.destroy);
 
 
 

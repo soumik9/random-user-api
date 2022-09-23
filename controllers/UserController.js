@@ -61,15 +61,15 @@ const store = async (req, res) => {
 
 const update = async (req, res) => {
 
-    const { id } = req.params;
-
     try {
-        const found = datas.find(item => item.id === Number(id));
+       
+        const found = datas.find(item => item.id === Number(req.body.id));
+
         if(!found){
             res.status(409).send('No data found with this id');
         }else{
 
-            const filteredData = datas.filter(item => item.id !== Number(id));
+            const filteredData = datas.filter(item => item.id !== Number(req.body.id));
 
             const updateData = { ...found, 
                 name: req.body.name, contact: req.body.contact, 
@@ -79,24 +79,23 @@ const update = async (req, res) => {
 
             filteredData.push(updateData)
             writeFileSync(__dirname + '/../public/data.json', JSON.stringify(filteredData))
-            res.send(`account with ${id} data update!`)
+            res.send(`account with ${req.body.id} data update!`)
         }
     } catch (error) {
         res.status(404).send(error.message)
     }
 }
-
 const bulkUpdate = async (req, res) => {
 
-    const { id } = req.params;
-
     try {
-        const found = datas.find(item => item.id === Number(id));
+       
+        const found = datas.find(item => item.id === Number(req.body.id));
+
         if(!found){
             res.status(409).send('No data found with this id');
         }else{
 
-            const filteredData = datas.filter(item => item.id !== Number(id));
+            const filteredData = datas.filter(item => item.id !== Number(req.body.id));
 
             const updateData = { ...found, 
                 name: req.body.name, contact: req.body.contact, 
@@ -106,7 +105,7 @@ const bulkUpdate = async (req, res) => {
 
             filteredData.push(updateData)
             writeFileSync(__dirname + '/../public/data.json', JSON.stringify(filteredData))
-            res.send(`account with ${id} data update!`)
+            res.send(`account with ${req.body.id} data update!`)
         }
     } catch (error) {
         res.status(404).send(error.message)
@@ -114,18 +113,15 @@ const bulkUpdate = async (req, res) => {
 }
 
 const destroy = async (req, res) => {
-
-    const { id } = req.params;
-
     try {
-        const found = datas.find(item => item.id === Number(id));
+        const found = datas.find(item => item.id === Number(req.body.id));
         if(!found){
             res.status(409).send('No data found with this id');
             
         }else{
-            const afterDeleted = datas.filter(item => item.id !== Number(id));
+            const afterDeleted = datas.filter(item => item.id !== Number(req.body.id));
             writeFileSync(__dirname + '/../public/data.json', JSON.stringify(afterDeleted))
-            res.send(`account with ${id} Data deleted!`)
+            res.send(`account with ${req.body.id} Data deleted!`)
         }
     } catch (error) {
         res.status(404).send(error.message)
